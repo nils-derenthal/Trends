@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{glossaries}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{ltablex}
+\usepackage[pass]{geometry}
+\usepackage[backend=biber, style=alphabetic]{biblatex}
+
+\addbibresource{bibfile.bib}
+% https://tex.stackexchange.com/questions/111363/exclude-fullcite-citation-from-bibliography#111375
+% erstellt einen Befehl, der ermöglicht, dass Quellen mit \fullcite{...} komplett zitiert werden können ohne im Literaturverzeichnis aufgeführt zu werden
+\DeclareBibliographyCategory{fullcited}
+\newcommand{\mybibexclude}[1]{\addtocategory{fullcited}{#1}}
+
+% https://www.overleaf.com/learn/latex/German
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[ngerman]{babel}
+% LaTeX trennt bekanntlich Wörter automatisch. Unbekannte Wörter können wie folgt beigebracht werden.
+% \usepackage{hyphenat}
+% \hyphenation{Mathe-matik wieder-gewinnen}
+
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+
+        \LARGE Seminararbeit im Seminar Trends der Softwaretechnik \\
+        \large Sommersemester 2025
+
+        \vspace{1.5cm}
+
+        \huge
+        \textbf{Vor- und Nachteile verschiedener Typsysteme im Kontext von Web-Anwendungen}
+
+        \vspace{3cm}
+
+        \large
+        \textbf{Nils Derenthal} (7217566) \\
+        \def\email{nils.derenthal002@stud.fh-dortmund.de}\tt\href{mailto:\email}{\email} \\
+        Informatik Dual
+
+        \vfill
+    \end{center}
+\end{titlepage}
+
+\tableofcontents
+
+\newpage
+
+
+\input{abschnitte/einleitung.tex}
+\input{abschnitte/literaturrecherche.tex}
+\input{abschnitte/hauptteil.tex}
+\input{abschnitte/zusammenfassung.tex}
+\input{abschnitte/anhang.tex}
+
+\end{document}

@@ -1,0 +1,29 @@
+\section{Anhang}
+Der Anhang dient als ergänzender Teil der Arbeit und  zählt nicht zur Zeichenbeschränkung.
+
+% optional, falls ihr viele Tabellen nutzt
+% \listoftables
+
+% optional, falls ihr viele Abbildungen nutzt
+% \listoffigures
+
+\newpage
+
+% Die Liste der verwendeten Literatur, außer Literatur die mit \mybibexclude{qullen-id} markiert wurde
+\printbibliography[notcategory=fullcited]
+
+\newpage
+\newgeometry{
+    right=0.7in,
+    left=0.7in            
+}
+
+% Literaturliste zum Rechercheprotokoll
+% \fullcite{qullen-id} gibt die entsprechende Quelle komplett aus. 
+% \mybibexclude{qullen-id} verhindert, dass die entsprechende Quelle im Literaturverzeichnis auftaucht
+\begin{tabularx}{\textwidth}{|X|c|}
+    \hline
+    \textbf{Suchergebnisse} & \textbf{Notizen} \\ \hline \hline
+    \fullcite{10.1145/800230.806975}\mybibexclude{10.1145/800230.806975} & Notizen \\ \hline
+    \caption{Literaturliste zum Rechercheprotokoll}
+\end{tabularx}

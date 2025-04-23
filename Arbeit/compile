@@ -1,0 +1,3 @@
+#!/bin/sh
+
+latexmk -auxdir=.auxil -f -pdf -pvc trends.tex
