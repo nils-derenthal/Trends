@@ -4,6 +4,12 @@
 \usepackage{tabularx}
 \usepackage{ltablex}
 \usepackage[pass]{geometry}
+
+% https://www.overleaf.com/learn/latex/German
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{csquotes}
+
 \usepackage[backend=biber, style=alphabetic]{biblatex}
 
 \addbibresource{bibfile.bib}
@@ -12,14 +18,16 @@
 \DeclareBibliographyCategory{fullcited}
 \newcommand{\mybibexclude}[1]{\addtocategory{fullcited}{#1}}
 
-% https://www.overleaf.com/learn/latex/German
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-
 \usepackage[ngerman]{babel}
 % LaTeX trennt bekanntlich Wörter automatisch. Unbekannte Wörter können wie folgt beigebracht werden.
 % \usepackage{hyphenat}
 % \hyphenation{Mathe-matik wieder-gewinnen}
+
+\usepackage{subcaption}
+\usepackage{graphicx}
+\graphicspath{{./assets}}
+
+\usepackage{float}
 
 
 \begin{document}
