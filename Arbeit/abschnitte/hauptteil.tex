@@ -5,18 +5,47 @@
 \subsection{Begriffserläuterungen}
 
 \subsubsection{Typen und Typsystem}
+
+Die Grundsätzliche Idee eines Typsystems ist die verhinderung von verhinderung von Fehlern zur
+Laufzeit eines Programmes. Typischerweise wird hierfür ein Algorithmus eingesetzt welcher überprüft,
+dass alle Typen die innerhalb eines Programmtextes verwendet werden untereinander stimmig sind.
+
+Typen können als eine Menge von möglichen Werten gesehen werden. So ist beispielsweise die Menge
+für den Typen von Ganzzahlen (oft \texttt{integer} oder \texttt{int}) im Fall von $32$ bit 
+$[-2^{31},2^{31}-1]$.
+Einer der simpelsten Typen sind Wahrheitswerte (oft \texttt{boolean} oder \texttt{bool}) welche aus 
+der Menge $\{\text{true}, \text{false}\}$ bestehen.
+
+Oft stellen Sprachen Möglichkeiten bereit aus diesen, wie auch weiteren, 
+als \textit{primitiv} bezeichneten Typen, komplexere Strukturen zu bilden um kompliziertere Anwendungsfälle
+abzudecken. Das einfachste Konzept stellt hierbei ein \textit{struct} da, welches einen Zusammengesetzen
+Datentypen aus verschiedenen anderen Zusammenfast. Dies wird in \ref{sec:structural_types} genauer dargestellt.
+
+
+Das Typesystem einer Sprache ist der Oberbegriff dafür wie Typen gebildet werden können und wie die richtigkeit dieser
+überprüft wird, falls das der Fall ist.
+
 \subsubsection{Statische und dynamische Typisierung}
 \subsubsection{Starke und schwache Typisierung}
 
-\subsection{Unterschiede der Paradigmen diverser Sprachen}
+\subsection{Unterschiede der Typsysteme diverser Sprachen}
 
-\subsubsection{Strukturelle Typen (C)}
+Im folgenden werden die Typsysteme von C, Python und Haskell betrachtet und ihre Unterschiede dargestellt.
+
+\subsubsection{Strukturelle Typen (C)}\label{sec:structural_types}
 \subsubsection{Dynamische Typen (Python)} % sicher?
 \subsubsection{Abhängige Typen (Haskell)}
+
+Algebraische Datentypen?
 
 \subsection{Relevanz für die Webentwicklung}
 
 \subsubsection{Schnittstellendefinition}
+
+- Rest API?
+
+- JSON?
+
 \subsubsection{Vor- und Nachteile}
 
 \subsection{Persönliche Reflexion}
