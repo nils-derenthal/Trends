@@ -28,7 +28,63 @@
 \graphicspath{{./assets}}
 
 \usepackage{float}
+\usepackage{listings}
+\usepackage{xcolor}
 
+\definecolor{amber}{rgb}{1.0, 0.49, 0.0}
+\definecolor{green}{rgb}{0.4, 1.0, 0.7}
+
+\lstdefinelanguage{Types}{
+    keywords={export, interface}
+}
+
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numberstyle=\scriptsize,
+    breaklines=true,
+    showstringspaces=false,
+    string=[db]{"},
+    stringstyle=\color{green!50!black},
+    morestring=[s][\color{black}]{\ \ "}{":},
+    keywordstyle=\color{blue},
+    keywords={true,false,null,export,interface},
+    literate=
+     *{0}{{{\color{red}0}}}{1}
+      {1}{{{\color{red}1}}}{1}
+      {2}{{{\color{red}2}}}{1}
+      {3}{{{\color{red}3}}}{1}
+      {4}{{{\color{red}4}}}{1}
+      {5}{{{\color{red}5}}}{1}
+      {6}{{{\color{red}6}}}{1}
+      {7}{{{\color{red}7}}}{1}
+      {8}{{{\color{red}8}}}{1}
+      {9}{{{\color{red}9}}}{1}
+      {.}{{{\color{red}.}}}{1}
+      {:}{{{\color{gray}{:}}}}{1}
+      {,}{{{\color{gray}{,}}}}{1}
+      {\{}{{{\color{gray}{\{}}}}{1}
+      {\}}{{{\color{gray}{\}}}}}{1}
+      {[}{{{\color{gray}{[}}}}{1}
+      {]}{{{\color{gray}{]}}}}{1},
+}
+
+\lstset{frame=tb,
+  language=Types,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=left,
+  numberstyle=\tiny\color{blue},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{green},
+  identifierstyle=\color{amber},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4
+}
 
 \begin{document}
 
@@ -42,7 +98,7 @@
         \vspace{1.5cm}
 
         \huge
-        \textbf{Vor- und Nachteile verschiedener Typsysteme im Kontext von Web-Anwendungen}
+        \textbf{Typsichere Schnittstellendefinition von API-Endpunkten}
 
         \vspace{3cm}
 

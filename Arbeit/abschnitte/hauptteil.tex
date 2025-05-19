@@ -1,51 +1,155 @@
 \section{Hauptteil}
-% Eigentlicher Inhalt der Arbeit mit geeigneter Einteilung in Unterkapitel und ggf. Querbezügen zu anderen Themen des Seminars und der persönlichen Reflexion des Trends (siehe Folien). \\ \\
-% Der Hauptteil sollte ca. 50\% vom Umfang der Arbeit ausmachen
+
+In diesem Abschnitt wird der zentrale Inhalt der Arbeit behandelt.
+Ausgehend von grundlegenden Konzepten der Typensysteme wird schrittweise erläutert, 
+wie diese Konzepte auf die Struktur und Definition moderner Web-APIs übertragen werden können.
+Ziel ist es, ein Verständnis dafür zu schaffen, wie Typisierung zur Fehlervermeidung und zur 
+strukturierten Entwicklung von Schnittstellen beiträgt.
 
 \subsection{Begriffserläuterungen}
 
 \subsubsection{Typen und Typsystem}
 
-Die Grundsätzliche Idee eines Typsystems ist die verhinderung von verhinderung von Fehlern zur
+Die Grundsätzliche Idee eines Typsystems ist die verhinderung von Fehlern zur
 Laufzeit eines Programmes. Typischerweise wird hierfür ein Algorithmus eingesetzt welcher überprüft,
 dass alle Typen die innerhalb eines Programmtextes verwendet werden untereinander stimmig sind.
 
 Typen können als eine Menge von möglichen Werten gesehen werden. So ist beispielsweise die Menge
-für den Typen von Ganzzahlen (oft \texttt{integer} oder \texttt{int}) im Fall von $32$ bit 
+für den Typen von Ganzzahlen (oft \texttt{integer} oder \texttt{int}) im Fall von $32$ bit
 $[-2^{31},2^{31}-1]$.
 Einer der simpelsten Typen sind Wahrheitswerte (oft \texttt{boolean} oder \texttt{bool}) welche aus 
 der Menge $\{\text{true}, \text{false}\}$ bestehen.
 
-Oft stellen Sprachen Möglichkeiten bereit aus diesen, wie auch weiteren, 
-als \textit{primitiv} bezeichneten Typen, komplexere Strukturen zu bilden um kompliziertere Anwendungsfälle
-abzudecken. Das einfachste Konzept stellt hierbei ein \textit{struct} da, welches einen Zusammengesetzen
-Datentypen aus verschiedenen anderen Zusammenfast. Dies wird in \ref{sec:structural_types} genauer dargestellt.
+In vielen Sprachen gibt es primitive Typen dessen Wertemengen genau ein Element umfassen. In Java ist dies Beispielsweise
+\texttt{null} und in TypeScript existieren \texttt{null} und \texttt{undefined}. \footnote{Auch wenn \texttt{void} einen zusätzlichen unären Typen darstellt wird dieser hier ignoriert}. Diese Typen können in kombination mit Summen (siehe \ref{sec:algebraic-types}) die mögliche Abwesenheit eines Wertes darstellen.
+In Java Beispielsweise kann jeder nicht primitive Typ implizit den Wert \texttt{null} besitzen.
 
+Oft stellen Sprachen Möglichkeiten bereit aus diesen, wie auch weiteren,
+als \textit{primitiv} bezeichneten Typen, komplexere Strukturen zu bilden um kompliziertere Anwendungsfälle
+abzudecken.
 
 Das Typesystem einer Sprache ist der Oberbegriff dafür wie Typen gebildet werden können und wie die richtigkeit dieser
 überprüft wird, falls das der Fall ist.
 
-\subsubsection{Statische und dynamische Typisierung}
-\subsubsection{Starke und schwache Typisierung}
+\subsubsection{Algebräische Typen} \label{sec:algebraic-types}
 
-\subsection{Unterschiede der Typsysteme diverser Sprachen}
+In der Typentheorie ist oft von algebräischen Typen die Rede. Damit sind sogenannte Summen- und Produkttypen gemeint.
 
-Im folgenden werden die Typsysteme von C, Python und Haskell betrachtet und ihre Unterschiede dargestellt.
+Summen (auch \texttt{Vereinigung} oder \texttt{Union}) stellen eine Auswahl zwischen mehreren Typen da. Beispielsweise kann eine Antwort einer API das tatsächliche
+Ergebnis einer Anfrage \textit{oder} eine Fehlermeldung zurückgeben. In der Typentheorie wird für Summentypen das $+$ Zeichen oder $|$ verwendet.
+\lstinline{Antwort = Fehler | TatsaechlicheAntwort} wäre eine Möglichkeit das Oben genannte Beispiel darzustellen.
+Mögliche Werte für \lstinline{Antwort} kommen nun aus der \textit{Vereinigung} der Mengen von den Typen 
+\lstinline{Fehler} und \lstinline{TatsaechlicheAntwort}.
 
-\subsubsection{Strukturelle Typen (C)}\label{sec:structural_types}
-\subsubsection{Dynamische Typen (Python)} % sicher?
-\subsubsection{Abhängige Typen (Haskell)}
+Produkte (auch \texttt{Schnittmengen}) sind ein Zusammenschluss von mehreren Typen.
+Als Notation für Produkte wird entweder $\times$ oder $\&$ benutzt.
+Wenn eine Anfrage Beispielsweise Informationen zu einem Nutzeraccount liefert könnten
+diese eine ID, einen Namen sowie eine E-mail Adresse Enthalten.
+Dies kann folgendermaßen dargestellt werden: \lstinline{NutzerInfos = ID & Name & Email}
+In der Praxis, beispielsweise in Sprachen wie TypeScript, sind Produktypen oft benannt, sie sind also Schlüssel-Wert Paare.
 
-Algebraische Datentypen?
+Mit Hilfe dieser beiden Operationen lassen sich bis auf wenige Ausnahmen, auf die nicht weiter eingegangen wird, alle Typen darstellen.
 
-\subsection{Relevanz für die Webentwicklung}
+\subsection{Schnittstellendefinition von REST APIs}
 
-\subsubsection{Schnittstellendefinition}
+Schnittstellen werden oft durch sogenannte DTOs (Data Transfer Objects) definiert. Diese nehmen oft die Form von einfachen Produkttypen an.
+Um den Transfer von Daten über das Netzwerk möglich zu machen wird oft von Serialisierung gebrauch gemacht um die Daten in einem genormten 
+Format zu senden. Eins der häufigsten Formate hierbei ist JSON (JavaScript Object Notation).
 
-- Rest API?
+Im folgenden wird ein Beispiel aus der Gitlab REST API Betrachtet. Der Endpunkt \texttt{/projects/:id/repository/files/:filepath} erlaubt es
+Benutzer*innen eine Datei aus einem Repository abzufragen. Die Erhaltene Antwort von GitLab folgt immer dem selben Schema:
+\begin{lstlisting}[language=json]
+{
+  "file_name": "file.hs",
+  "size": 1476,
+  ...
+  "last_commit_id": "570e7b2abdd848b...",
+  "execute_filemode": false
+}
+\end{lstlisting}
 
-- JSON?
+Dieses Schema lässt sich als ein Produkt der einzelnen Schlüssel-Wert Paare Darstellen: \\
+\lstinline[language=json]|file_name=string & size=number & ...|\\
+Eine Vereinfachte Darstellung, in einem JSON-ähnlichen Format könnte wiefolgt aussehen:
 
-\subsubsection{Vor- und Nachteile}
+\begin{lstlisting}[language=json]
+{
+  "file_name": string,
+  "size": number,
+  ...
+}
+\end{lstlisting}
+
+Es ist möglich das eine Schnittstelle optionale Felder besitzt, welche mit einer Summe 
+des unären Typen (bespielsweise \texttt{undefined}) dargestellt wird.
+\footnote{Auf den Unterschied zwischen optionalen Feldern und erforderlichen optionalen Feldern wird hier nicht weiter eingegangen.}.
+
+
+
+TODO Beispiel
+
+\subsubsection{API Schemas \& OpenAPI}
+
+Zur formalen Definition und Dokumentation von REST APIs haben sich sogenannte API-Schemas etabliert.
+Diese beschreiben die möglichen Anfragen und Antworten, die eine API erwartet bzw. zurückgibt.
+Ein weit verbreiteter Standard zur Beschreibung solcher Schnittstellen ist OpenAPI \footnote{ehemals Swagger}.
+
+Ein OpenAPI-Dokument beschreibt typischerweise unteranderem:
+\begin{itemize}
+    \item Pfade (Endpoints) der API
+    \item HTTP-Methoden (GET, POST, etc.)
+    \item Anfrageparameter und deren Typen
+    \item Erwartete Antworttypen und HTTP-Statuscodes
+\end{itemize}
+
+im folgenden soll hierbei primär die Beschreibung der Afragen und Antworten betrachtet werden.
+Ein zentrales Konzept ist das sogenannte Schema, das die Struktur dieser Daten beschreibt. 
+Die Schemata basieren in OpenAPI auf JSON.
+
+Ein einfaches Beispiel für ein OpenAPI Schema, das dem bereits zuvor betrachteten GitLab Beispiel ähnelt, könnte wie folgt aussehen:
+
+\begin{lstlisting}[language=json]
+{
+  "type": "object",
+  "properties": {
+    "file_name": { "type": "string" },
+    "size": { "type": "integer" },
+    "last_commit_id": { "type": "string" },
+    "execute_filemode": { "type": "boolean" }
+  },
+  "required": ["file_name", "size"]
+}
+\end{lstlisting}
+
+Hierbei ist ersichtlich, dass es sich um einen Produkttyp handelt,
+dessen Felder unterschiedliche primitive Typen besitzen.
+Felder, die nicht im \texttt{required}-Array gelistet sind, sind optional, was, wie zuvor beschrieben,
+typentheoretisch einer Summe mit einem unären Typen wie \texttt{undefined} entspricht.
+
+Neben der Möglichkeit eine API so zu dokumentieren können Schemata wie diese auch dazu verwendet werden
+um diese Maschinell zu analysieren und zu transformieren.
+
+\subsubsection{Typgenerierung}
+
+Aus OpenAPI-Schemas lassen sich automatisch Typdefinitionen für Programmiersprachen generieren, 
+was die Konsistenz zwischen API-Dokumentation und Implementierung sicherstellt.
+Dies ist möglich bei Projekten die eine eigene Backend- und Frontend-Struktur besitzen, sowie als auch
+bei Projekten die ausschließlich eine externe API benutzen welche ein OpenAPI Schema bereitstellt.
+
+Für TypeScript ist das Tool \texttt{openapi-typescript} verfügbar.
+Aus dem zuvor gezeigten Schema wird folgenden Typ erzeugt:
+\begin{lstlisting}[language=json]
+interface FileInfo {
+  file_name: string;
+  size: number;
+  last_commit_id: string | undefined;
+  execute_filemode: boolean | undefined;
+}
+\end{lstlisting}
+Optionale Felder, also die, die nicht in dem \texttt{required} array existieren, werden als optional deklariert.
+
+Besides generating a type definition from a schema, OpenAPI tools also allow generating schemas from existing APIs.
+For example, in the Spring Framework for Java, \texttt{springdoc-openapi} can generate a schema from a \texttt{RestController}.
+When the generated schema is used by the frontend to generate its type definition there is a clear
 
 \subsection{Persönliche Reflexion}

@@ -1,22 +1,24 @@
 \section{Einleitung} 
 
-Die Verlässlichkeit von Web-Anwendungen hat in der heutigen Zeit eine so hohe Relevanz wie noch
-nie zuvor und die Wirtschaftlichkeit von Dienstleistenden IT-Unternehmen hängt stark von der Qualität ihrer Software ab.
-Ein wichtiger Aspekt in Bezug auf die Verlässlichkeit von Software sind Typsysteme, mit ihrem Versprechen eine Vielzahl
-von Fehlern auszuschließen, bevor die Software überhaupt läuft.
-Die folgende Arbeit richtet sich an Softwarearchitekten sowie Technologieentscheider
-und soll bei der Entscheidungsfindung von Backendtechnologien von Webanwendungen helfen, 
-indem das Konzept der Typsysteme sowie deren Eigenschaften erläutert werden.
-Hierbei wird durch anschauliche Beispiele und realen Szenarios aus der Welt der Webentwicklung eine Praxisnahe
-Gegenüberstellung verschiedener Paradigmen vorgenommen.
+% Die Verlässlichkeit von Web-Anwendungen hat in der heutigen Zeit eine so hohe Relevanz wie noch
+% nie zuvor und die Wirtschaftlichkeit von Dienstleistenden IT-Unternehmen hängt stark von der Qualität ihrer Software ab.
+% Ein wichtiger Aspekt in Bezug auf die Verlässlichkeit von Software sind Typsysteme, mit ihrem Versprechen eine Vielzahl
+% von Fehlern auszuschließen, bevor die Software überhaupt läuft.
 
-\subsection{Grundlagen} 
+Typensicherheit ist ein oft diskutiertes Thema in der Softwareentwicklung. 
+Viele Sprachen 
 
-Für die Abeit wird im folgenden angenommen, dass Leser*innen ein Basiswissen in der Webentwicklung besitzen,
-auch wenn keine Details diesbezüglich notwendig sind.
+Die folgende Arbeit richtet sich an angehende Softwarearchitekten und soll dabei helfen API-Design sowie Implementation
+mithilfe von Typsystemen zu erläutern.
+Das Thema wird im folgenden durch anschauliche Beispiele im Kontext von reelen Szenarien praxisnah dargestellt.
+
+\subsection{Grundlagen}
+
+Für das Verständnis der Arbeit wird angenommen, dass Leser*innen ein Grundlegendes Wissen über Webanwendungen sowie REST-APIs besitzen.
 Es ist desweiteren hilfreich, wenn Kenntnisse über eine Sprache mit typisierung vorhanden sind
 (Beispielsweise Klassen und Objekttypen in Java, Types in TypeScript oder Enums in Rust).
-Die Typentheorie muss nicht bekannt sein und alles was in diesem Bezug relevant ist wird im Laufe der Arbeit erläutert.
+Die Typentheorie muss nicht bekannt sein und alles was in diesem Bezug relevant ist wird im Laufe der Arbeit erläutert. 
+Hierfür wird ein Basiswissen über Mengen verlangt.
 
 % TODO
 
@@ -39,12 +41,7 @@ oder dem Betriebssystem eines Millardenkonzerns: Im Alltag trifft man nicht selt
   \caption{Fehler in alltäglichen Anwendungen}
 \end{figure}
 
-Kaum eine Software is frei von Fehlern, welche je nach schwere ein großes Betriebsrisiko darstellen, weswegen die Vermeidung von diesen eine hohe Bedeutung
-in der Entwicklung hat. 
-Ein Ansatz, welcher in den letzen Jahren zunehmend an Bedeutung gewonnen hat sind stärkere Typsysteme, welche vermeintlich dafür sorgen, dass Fehler bereits
-in der Entwicklung abgefangen werden können.
-Beispiele für jüngere Entwicklungen in diesem Bereich sind Technologien wie TypeScript, welches versucht JavaScript zu typisieren, oder Rust, als eine Sprache die einen Fokus auf
-ein ausdrucksstarkes Typsystem legt.
+Ein Ansatz um Fehler zur Laufzeit von Software zu verhindern sind Typsysteme, wie Beispielsweise von TypeScript welches versucht JavaScript zu typisieren.
 
 \begin{figure}[H]
   \centering
@@ -52,11 +49,15 @@ ein ausdrucksstarkes Typsystem legt.
   \caption{32\% der Befragten in der \textquote{State of JavaScript 2024} Umfrage gaben an das (fehlende) statische Typisierung einer ihrer größten Probleme mit der Sprache sei \cite{Greif_Burel_2024}}
 \end{figure}
 
-\subsection{Ziel der Arbeit} 
-Im Laufe der Arbeit sollen den Leser*innen Eigenschaften und Vor- wie auch Nachteile von Typsystemen soweit vorgestellt werden,
-sodass aufgrund dieser eine informierte Technologieauswahl für neue Projekte mit einem Web-Backend getroffen werden kann.
-Die Erlernten Grundlagen von Typsystemen sollen die Begrifflichkeiten und Unterschiede 
-von dynamischen und statischen sowie starken und schwachen Typsystemen umfassen. 
+In modernen Softwarearchitekturen kommunizieren Anwendungen häufig über APIs.
+Dabei werden die Datenstrukturen von Anfrage- und Antwort Daten oft mehrfach und in verschiedenen Systemen definiert - zum Beispiel getrennt im Front- und Backend.
+Diese Redundanz führt zu erhöhtem Wartungsaufwand und einem hohen Risiko von Fehlern, wenn sich Schnittstellen ändern, aber nicht von allen Konsumenten gleichermaßen
+angepasst werden.
 
-Des weiteren können sich Leser*innen durch die Arbeit weiterführende Literatur zu Typensystemen besser verstehen und sich selber weiterbilden.
-Hierdurch können sie auch für weitere Anwendungsfälle Kriterien bestimmen welche für die Auswahl einer Sprache in Bezug auf deren Typsystem relevant sind.
+\subsection{Ziel der Arbeit}
+
+In der folgenden Ausarbeitung sollen zunächst Möglichkeiten aufgezeigt werden, wie Schnittstellen Typsicher definiert werden können.
+Daraufhin werden Tools präsentiert mit denen Schnittstellen über Systeme hinweg konsistent dargestellt werden können um hohe Wartungsaufwände und Fehler bei änderungen zu vermeiden.
+
+Insgesamt soll die Arbeit Architekten von Webanwendungen dabei helfen API-Schnittstellen zu definieren und die in der Arbeit erwähnten Tools sinnvoll einzusetzen
+um konsistente, klar definierte und typsichere Endpunkte zu schreiben.
