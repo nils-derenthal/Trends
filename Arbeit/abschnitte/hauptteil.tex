@@ -1,3 +1,5 @@
+% ca. 50%
+
 \section{Hauptteil}
 
 In diesem Abschnitt wird der zentrale Inhalt der Arbeit behandelt.
@@ -10,9 +12,9 @@ strukturierten Entwicklung von Schnittstellen beiträgt.
 
 \subsubsection{Typen und Typsystem}
 
-Die Grundsätzliche Idee eines Typsystems ist die verhinderung von Fehlern zur
+Die Grundsätzliche Idee eines Typsystems ist die Vermeidung von Fehlern zur
 Laufzeit eines Programmes. Typischerweise wird hierfür ein Algorithmus eingesetzt welcher überprüft,
-dass alle Typen die innerhalb eines Programmtextes verwendet werden untereinander stimmig sind.
+ob alle Typen, die innerhalb eines Programmtextes verwendet werden, konsistent sind.
 
 Typen können als eine Menge von möglichen Werten gesehen werden. So ist beispielsweise die Menge
 für den Typen von Ganzzahlen (oft \texttt{integer} oder \texttt{int}) im Fall von $32$ bit
@@ -25,11 +27,10 @@ In vielen Sprachen gibt es primitive Typen dessen Wertemengen genau ein Element 
 In Java Beispielsweise kann jeder nicht primitive Typ implizit den Wert \texttt{null} besitzen.
 
 Oft stellen Sprachen Möglichkeiten bereit aus diesen, wie auch weiteren,
-als \textit{primitiv} bezeichneten Typen, komplexere Strukturen zu bilden um kompliziertere Anwendungsfälle
+als \textit{primitiv} bezeichneten Typen, komplexere Strukturen zu bilden um viele Anwendungsfälle
 abzudecken.
 
-Das Typesystem einer Sprache ist der Oberbegriff dafür wie Typen gebildet werden können und wie die richtigkeit dieser
-überprüft wird, falls das der Fall ist.
+Ein Typsystem beschreibt die Regeln einer Programmiersprache zur Bildung, Kombination und Überprüfung von diesen Typen.
 
 \subsubsection{Algebräische Typen} \label{sec:algebraic-types}
 
@@ -41,7 +42,7 @@ Ergebnis einer Anfrage \textit{oder} eine Fehlermeldung zurückgeben. In der Typ
 Mögliche Werte für \lstinline{Antwort} kommen nun aus der \textit{Vereinigung} der Mengen von den Typen 
 \lstinline{Fehler} und \lstinline{TatsaechlicheAntwort}.
 
-Produkte (auch \texttt{Schnittmengen}) sind ein Zusammenschluss von mehreren Typen.
+Produkte (auch \texttt{Kartesisches Produkt}) sind ein Zusammenschluss von mehreren Typen.
 Als Notation für Produkte wird entweder $\times$ oder $\&$ benutzt.
 Wenn eine Anfrage Beispielsweise Informationen zu einem Nutzeraccount liefert könnten
 diese eine ID, einen Namen sowie eine E-mail Adresse Enthalten.
@@ -70,23 +71,24 @@ Benutzer*innen eine Datei aus einem Repository abzufragen. Die Erhaltene Antwort
 
 Dieses Schema lässt sich als ein Produkt der einzelnen Schlüssel-Wert Paare Darstellen: \\
 \lstinline[language=json]|file_name=string & size=number & ...|\\
-Eine Vereinfachte Darstellung, in einem JSON-ähnlichen Format könnte wiefolgt aussehen:
-
-\begin{lstlisting}[language=json]
-{
-  "file_name": string,
-  "size": number,
-  ...
-}
-\end{lstlisting}
 
 Es ist möglich das eine Schnittstelle optionale Felder besitzt, welche mit einer Summe 
 des unären Typen (bespielsweise \texttt{undefined}) dargestellt wird.
 \footnote{Auf den Unterschied zwischen optionalen Feldern und erforderlichen optionalen Feldern wird hier nicht weiter eingegangen.}.
 
+Beispielsweise könnte eine Referenz auf eine assoziierte Merge Request existieren, dies muss aber nicht der Fall sein:
 
+Eine Vereinfachte Darstellung, des Oben genannten Beispiels mit Optionalem Feld 
+in einem JSON-ähnlichen Format könnte wiefolgt aussehen:
 
-TODO Beispiel
+\begin{lstlisting}[language=json]
+{
+  "file_name": string,
+  "size": number,
+  "related_merge_request": number | undefined
+  ...
+}
+\end{lstlisting}
 
 \subsubsection{API Schemas \& OpenAPI}
 
@@ -148,8 +150,80 @@ interface FileInfo {
 \end{lstlisting}
 Optionale Felder, also die, die nicht in dem \texttt{required} array existieren, werden als optional deklariert.
 
-Besides generating a type definition from a schema, OpenAPI tools also allow generating schemas from existing APIs.
-For example, in the Spring Framework for Java, \texttt{springdoc-openapi} can generate a schema from a \texttt{RestController}.
-When the generated schema is used by the frontend to generate its type definition there is a clear
+Neben der Generierung einer Typdefinition aus einem Schema ermöglichen OpenAPI-Tools auch die Erstellung von
+Schemata aus bestehenden APIs.
+Zum Beispiel kann im Spring Framework für Java das Tool springdoc-openapi ein Schema aus einem 
+RestController generieren.
+Wenn das generierte Schema vom Frontend zur Erstellung seiner Typdefinition verwendet wird ergibt sich auch
+hier eine klare Definition, ohne das das Schema händisch erstellt werden muss.
+
+\subsubsection{Limitationen in Bezug auf Typen}
+
+Obwohl OpenAPI, wie aufgezeigt die Möglichkeit gibt Typen aus definitierten Schnittstellen zu bilden, 
+gibt es auch einige wichtige Limitationen bei der Übersetzung.
+
+Ein zentrales Problem ist, dass OpenAPI über das Attribut \texttt{format} zusätzliche semantische Einschränkungen
+auf primitive Typen spezifizieren kann, die über die reine Typinformation hinausgehen.
+Beispielsweise kann ein Feld vom Typ \texttt{string} das Format \texttt{date-time} tragen, 
+was bedeutet, dass nur Zeichenketten im ISO 8601 Zeitformat gültig sind. 
+Auch für \texttt{integer} oder \texttt{number} existieren Formate wie 
+\texttt{int32}, \texttt{int64} oder \texttt{float}. 
+Diese Formate definieren eingeschränkte Wertebereiche oder bestimmte Darstellungsformen.
+
+Das Problem hierbei ist, dass viele Programmiersprachen, insbesondere solche mit struktureller Typisierung wie TypeScript,
+diese Formatinformationen nicht direkt in ihre Typensysteme übersetzen können. 
+Während das Tooling den Typ korrekt als \texttt{string} oder \texttt{number} übernimmt, 
+geht die mit dem Format verbundene Einschränkung dabei verloren. 
+Der erzeugte Typ vermittelt also nur einen Teil der in OpenAPI spezifizierten Bedeutung, 
+was zu einem Verlust an Präzision führen kann.
+
+Ein weiteres Beispiel betrifft Wertebereiche, 
+die über die \texttt{minimum}- und \texttt{maximum}-Eigenschaften eines Schemas definiert werden.
+Auch hier kann OpenAPI präzise definieren, dass zum Beispiel ein Zahlenwert zwischen 0 und 100 liegen muss. 
+In vielen Zielsprachen lässt sich dies jedoch nicht direkt typisieren, 
+da es keine eingebauten Mechanismen für bereichsbegrenzte Typen gibt.
+Entsprechend müssen solche Einschränkungen entweder in Validierungslogik separat abgebildet oder manuell dokumentiert werden,
+was wiederum potenzielle Inkonsistenzen schafft.
+
+\subsubsection{Herausforderungen und Risiken automatischer Typgenerierung}
+
+Trotz der offensichtlichen Vorteile automatisierter Typgenerierung, wie der Reduktion manueller Fehler
+und der Sicherstellung von Konsistenz zwischen Dokumentation und Implementierung, 
+bringt dieser Ansatz auch einige Herausforderungen mit sich. 
+Ein zentrales Problem stellt der sogenannte Schema-Drift dar:
+Wenn sich das OpenAPI-Schema ändert, aber die generierten Typen im Frontend nicht aktualisiert werden, 
+kann dies zu schwer auffindbaren Laufzeitfehlern führen. 
+Zudem besteht bei generierten Typen die Gefahr einer Fehlinferenz, 
+etwa wenn das Schema nicht präzise genug formuliert ist oder vereinfachte Annahmen über optionale Felder getroffen werden.
+In größeren Projekten kann es außerdem zu Konflikten zwischen manuell gepflegten und automatisch erzeugten Typdefinitionen kommen,
+insbesondere wenn Entwickler*innen lokal Anpassungen vornehmen, 
+die beim nächsten Generierungslauf überschrieben werden. 
+In solchen Fällen ist eine klare Tooling-Strategie sowie ein bewusstes Versions- und Änderungsmanagement unerlässlich, 
+um Konsistenz und Wartbarkeit langfristig sicherzustellen.
 
 \subsection{Persönliche Reflexion}
+
+In meiner bisherigen Arbeit als Softwareentwickler bin ich immer wieder auf die Herausforderungen gestoßen,
+die inkonsistente Schnittstellen mit sich bringen. 
+Diese Probleme reichen von Missverständnissen in der Kommunikation zwischen verschiedenen Systemen, 
+bis hin zu erhöhtem Wartungsaufwand und einer schlechteren Benutzererfahrung. 
+Der Umgang mit solchen Schnittstellen kann durchaus mühsam sein, 
+da kleine Änderungen oder Fehler schwerwiegende Auswirkungen auf die gesamte Systemarchitektur haben können.
+
+In diesem Kontext habe ich OpenAPI als eine interessante Möglichkeit kennengelernt, 
+um Schnittstellen klarer und standardisierter zu gestalten. 
+OpenAPI ermöglicht es, Schnittstellen strukturiert und maschinenlesbar zu definieren, was viele Vorteile mit sich bringt.
+Durch die Dokumentation von APIs in einer klaren, standardisierten Form können potenzielle Inkonsistenzen frühzeitig erkannt 
+und behoben werden, was den Entwicklungsprozess insgesamt effizienter und weniger fehleranfällig macht.
+
+Trotz der vielen Vorteile, die OpenAPI mit sich bringt, bleibt ein gewisser kritischer Blick bestehen. 
+Die Definition von APIs erfordert eine sorgfältige Planung und kann bei komplexen Systemen schnell unübersichtlich werden.
+Zudem besteht die Gefahr, dass bei einer rein automatisierten Generierung der Schnittstellen die Qualität und Flexibilität leidet,
+wenn Entwickler nicht ausreichend in den Prozess eingebunden sind. 
+Es bleibt also eine Herausforderung, das Potenzial von OpenAPI voll auszuschöpfen, 
+ohne die Kontrolle über die Feinheiten der Schnittstellen und deren Anpassungsfähigkeit zu verlieren.
+
+Insgesamt sehe ich OpenAPI als eine vielversprechende Methode zur Verbesserung der Konsistenz und Wartbarkeit von Schnittstellen,
+auch wenn ich die Notwendigkeit für eine kritische und bewusste Implementierung nicht aus den Augen verlieren möchte. 
+Die Balance zwischen Automatisierung und manuellem Feingefühl bleibt dabei entscheidend,
+um langfristig stabile und leistungsfähige Systeme zu entwickeln.
