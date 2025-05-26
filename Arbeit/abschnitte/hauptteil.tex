@@ -35,8 +35,10 @@ Ein Typsystem beschreibt die Regeln einer Programmiersprache zur Bildung, Kombin
 \subsubsection{Algebräische Typen} \label{sec:algebraic-types}
 
 In der Typentheorie ist oft von algebräischen Typen die Rede. Damit sind sogenannte Summen- und Produkttypen gemeint.
+Auch wenn diese in der Funktionalen Programmierung oft Rekursiv sind, werden im folgenden ausschließlich nicht-rekursive
+Strukturen beachtet. \cite{https://doi.org/10.1002/spe.1058}
 
-Summen (auch \texttt{Vereinigung} oder \texttt{Union}) stellen eine Auswahl zwischen mehreren Typen da. Beispielsweise kann eine Antwort einer API das tatsächliche
+Summen (auch \texttt{Vereinigung} oder \texttt{Union}) stellen eine Auswahl zwischen mehreren Typen da.\cite{288374} Beispielsweise kann eine Antwort einer API das tatsächliche
 Ergebnis einer Anfrage \textit{oder} eine Fehlermeldung zurückgeben. In der Typentheorie wird für Summentypen das $+$ Zeichen oder $|$ verwendet.
 \lstinline{Antwort = Fehler | TatsaechlicheAntwort} wäre eine Möglichkeit das Oben genannte Beispiel darzustellen.
 Mögliche Werte für \lstinline{Antwort} kommen nun aus der \textit{Vereinigung} der Mengen von den Typen 
@@ -47,15 +49,15 @@ Als Notation für Produkte wird entweder $\times$ oder $\&$ benutzt.
 Wenn eine Anfrage Beispielsweise Informationen zu einem Nutzeraccount liefert könnten
 diese eine ID, einen Namen sowie eine E-mail Adresse Enthalten.
 Dies kann folgendermaßen dargestellt werden: \lstinline{NutzerInfos = ID & Name & Email}
-In der Praxis, beispielsweise in Sprachen wie TypeScript, sind Produktypen oft benannt, sie sind also Schlüssel-Wert Paare.
+In der Praxis, beispielsweise in Sprachen wie TypeScript, sind Produktypen oft benannt, sie sind also Schlüssel-Wert Paare.\cite{https://doi.org/10.1002/spe.1058}
 
-Mit Hilfe dieser beiden Operationen lassen sich bis auf wenige Ausnahmen, auf die nicht weiter eingegangen wird, alle Typen darstellen.
+Mit Hilfe dieser beiden Operationen lassen sich bis auf wenige Ausnahmen, auf die nicht weiter eingegangen wird, alle Typen darstellen.\cite{10.1145/2633628.2633634}
 
 \subsection{Schnittstellendefinition von REST APIs}
 
 Schnittstellen werden oft durch sogenannte DTOs (Data Transfer Objects) definiert. Diese nehmen oft die Form von einfachen Produkttypen an.
 Um den Transfer von Daten über das Netzwerk möglich zu machen wird oft von Serialisierung gebrauch gemacht um die Daten in einem genormten 
-Format zu senden. Eins der häufigsten Formate hierbei ist JSON (JavaScript Object Notation).
+Format zu senden.\cite{Monday2003} Eins der häufigsten Formate hierbei ist JSON (JavaScript Object Notation).
 
 Im folgenden wird ein Beispiel aus der Gitlab REST API Betrachtet. Der Endpunkt \texttt{/projects/:id/repository/files/:filepath} erlaubt es
 Benutzer*innen eine Datei aus einem Repository abzufragen. Die Erhaltene Antwort von GitLab folgt immer dem selben Schema:
@@ -92,9 +94,9 @@ in einem JSON-ähnlichen Format könnte wiefolgt aussehen:
 
 \subsubsection{API Schemas \& OpenAPI}
 
-Zur formalen Definition und Dokumentation von REST APIs haben sich sogenannte API-Schemas etabliert.
+Zur formalen Definition und Dokumentation\cite{10.1145/2577080.2577098} von REST APIs haben sich sogenannte API-Schemas etabliert.
 Diese beschreiben die möglichen Anfragen und Antworten, die eine API erwartet bzw. zurückgibt.
-Ein weit verbreiteter Standard zur Beschreibung solcher Schnittstellen ist OpenAPI \footnote{ehemals Swagger}.
+Ein weit verbreiteter Standard zur Beschreibung solcher Schnittstellen ist OpenAPI \footnote{ehemals Swagger}.\cite{Ed-douibiHamza2018OATt}\cite{BognerJustus2023DRAd}
 
 Ein OpenAPI-Dokument beschreibt typischerweise unteranderem:
 \begin{itemize}
@@ -185,10 +187,10 @@ da es keine eingebauten Mechanismen für bereichsbegrenzte Typen gibt.
 Entsprechend müssen solche Einschränkungen entweder in Validierungslogik separat abgebildet oder manuell dokumentiert werden,
 was wiederum potenzielle Inkonsistenzen schafft.
 
-\subsubsection{Herausforderungen und Risiken automatischer Typgenerierung}
+\subsubsection{Herausforderungen automatischer Typgenerierung}
 
 Trotz der offensichtlichen Vorteile automatisierter Typgenerierung, wie der Reduktion manueller Fehler
-und der Sicherstellung von Konsistenz zwischen Dokumentation und Implementierung, 
+und der Sicherstellung von Konsistenz zwischen Dokumentation und Implementierung und automatischen Tests\cite{9159071}
 bringt dieser Ansatz auch einige Herausforderungen mit sich. 
 Ein zentrales Problem stellt der sogenannte Schema-Drift dar:
 Wenn sich das OpenAPI-Schema ändert, aber die generierten Typen im Frontend nicht aktualisiert werden, 

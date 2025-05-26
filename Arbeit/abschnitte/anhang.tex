@@ -21,9 +21,21 @@
 % Literaturliste zum Rechercheprotokoll
 % \fullcite{qullen-id} gibt die entsprechende Quelle komplett aus. 
 % \mybibexclude{qullen-id} verhindert, dass die entsprechende Quelle im Literaturverzeichnis auftaucht
-\begin{tabularx}{\textwidth}{|X|c|}
+
+\def\uncite#1{\fullcite{#1}\mybibexclude{#1}}
+
+\begin{tabularx}{\textwidth}{|X|X|}
     \hline
     \textbf{Suchergebnisse} & \textbf{Notizen} \\ \hline \hline
-    \fullcite{10.1145/800230.806975}\mybibexclude{10.1145/800230.806975} & Notizen \\ \hline
+    \fullcite{10.1145/2577080.2577098} & Effektivität von Typen(namen) als Dokumentation \\ \hline
+    \fullcite{9159071} & Automatisierte Tests mit hilfe von OpenAPI \\ \hline
+    \uncite{10.1145/3643991.3644932} & Datensammlung von Quelloffenen OpenAPI Schemata (Ungenutzt) \\ \hline
+    \uncite{TZAVARAS2023100675} & OpenAPI als Tool für WoT APIs (Ungenutzt) \\ \hline
+    \fullcite{Ed-douibiHamza2018OATt} & OpenAPI als Möglichkeit Dokumentation in Form von UML Diagrammen zu generieren \\ \hline
+    \fullcite{10.1145/2633628.2633634} & Beweis für die Darstellbarkeit von Algebräischen Typen als Summen von Produkten \\ \hline
+    \fullcite{288374} & Definition von Summentypen \\ \hline
+    \fullcite{https://doi.org/10.1002/spe.1058} & Tool zum definieren von Algebräischen Datentypen in C \\ \hline
+    \fullcite{BognerJustus2023DRAd} & Verständlichkeit von REST APIs \\ \hline
+    \fullcite{Monday2003} & Data Transfer Objects als Brücke zwischen Systemen \\ \hline
     \caption{Literaturliste zum Rechercheprotokoll}
 \end{tabularx}

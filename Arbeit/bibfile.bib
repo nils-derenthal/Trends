@@ -30,6 +30,186 @@
   series = {SIGPLAN '82}
 }
 
+@inproceedings{10.1145/2577080.2577098,
+author = {Spiza, Samuel and Hanenberg, Stefan},
+title = {Type names without static type checking already improve the usability of APIs (as long as the type names are correct): an empirical study},
+year = {2014},
+isbn = {9781450327725},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/2577080.2577098},
+doi = {10.1145/2577080.2577098},
+abstract = {In the discussion about the usefulness of static or dynamic type systems there is often the statement that static type systems improve the documentation of software. In the meantime there exists even some empirical evidence for this statement. One of the possible explanations for this positive influence is that the static type system of programming languages such as Java require developers to write down the type names, i.e. lexical representations which potentially help developers. Because of that there is a plausible hypothesis that the main benefit comes from the type names and not from the static type checks that are based on these names. In order to argue for or against static type systems it is desirable to check this plausible hypothesis in an experimental way. This paper describes an experiment with 20 participants that has been performed in order to check whether developers using an unknown API already benefit (in terms of development time) from the pure syntactical representation of type names without static type checking. The result of the study is that developers do benefit from the type names in an API's source code. But already a single wrong type name has a measurable significant negative impact on the development time in comparison to APIs without type names.},
+booktitle = {Proceedings of the 13th International Conference on Modularity},
+pages = {99–108},
+numpages = {10},
+keywords = {type systems, programming languages, empirical research, controlled experiments},
+location = {Lugano, Switzerland},
+series = {MODULARITY '14}
+}
+
+@Inbook{Monday2003,
+author="Monday, Paul B.",
+title="Implementing the Data Transfer Object Pattern",
+bookTitle="Web Services Patterns: Java{\texttrademark} Platform Edition",
+year="2003",
+publisher="Apress",
+address="Berkeley, CA",
+pages="279--295",
+abstract="The previous two chapters discussed mechanisms for optimizing a client's use of a Web Service. You will find that, in practice, Web Service operations are relatively expensive when compared to a local method call between objects in the same process. Consider Figure 16--1 (previously shown as Figure 4--2). A communication path between two components, ArchitectureAComponent and ArchitectureBComponent, contains at least two transformations in a single direction and an intermediate format. Then, consider that each call must return from the one-way trip with a new value.",
+isbn="978-1-4302-0776-4",
+doi="10.1007/978-1-4302-0776-4_16",
+url="https://doi.org/10.1007/978-1-4302-0776-4_16"
+}
+
+
+@article{BognerJustus2023DRAd,
+abstract = {Context
+Web APIs are one of the most used ways to expose application functionality on the Web, and their understandability is important for efficiently using the provided resources. While many API design rules exist, empirical evidence for the effectiveness of most rules is lacking.
+Objective
+We therefore wanted to study 1) the impact of RESTful API design rules on understandability, 2) if rule violations are also perceived as more difficult to understand, and 3) if demographic attributes like REST-related experience have an influence on this.
+Method
+We conducted a controlled Web-based experiment with 105 participants, from both industry and academia and with different levels of experience. Based on a hybrid between a
+crossover
+and a
+between-subjects
+design, we studied 12 design rules using API snippets in two complementary versions: one that adhered to a
+rule
+and one that was a
+violation
+of this rule. Participants answered comprehension questions and rated the perceived difficulty.
+Results
+For 11 of the 12 rules, we found that
+violation
+performed significantly worse than
+rule
+for the comprehension tasks. Regarding the subjective ratings, we found significant differences for 9 of the 12 rules, meaning that most violations were subjectively rated as more difficult to understand. Demographics played no role in the comprehension performance for
+violation
+.
+Conclusions
+Our results provide first empirical evidence for the importance of following design rules to improve the understandability of Web APIs, which is important for researchers, practitioners, and educators.},
+author = {Bogner, Justus and Kotstein, Sebastian and Pfaff, Timo},
+address = {New York},
+copyright = {The Author(s) 2023},
+issn = {1382-3256},
+journal = {Empirical software engineering : an international journal},
+keywords = {Computer science ; Computer software ; Design ; Experiments ; Practice Guidelines as Topic ; Software engineering ; Translators},
+language = {eng},
+number = {6},
+pages = {132-},
+publisher = {Springer US},
+title = {Do RESTful API design rules have an impact on the understandability of Web APIs?},
+volume = {28},
+year = {2023},
+}
+
+@article{https://doi.org/10.1002/spe.1058,
+author = {Hartel, Pieter H. and Muller, Henk L.},
+title = {Simple algebraic data types for C},
+journal = {Software: Practice and Experience},
+volume = {42},
+number = {2},
+pages = {191-210},
+keywords = {algebraic data types, pattern matching, software tool},
+doi = {https://doi.org/10.1002/spe.1058},
+url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/spe.1058},
+eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/spe.1058},
+abstract = {SUMMARY Adt is a simple tool in the spirit of Lex and Yacc that makes monomorphic algebraic data types, polymorphic built-in types like the list and an efficient form of pattern matching available in C programs. C programs built with ADTs typically use NULL pointers only to indicate don't care values, and not as sentinels. This reduces the scope for errors involving NULL pointers. The Adt tool generates runtime checks, which catch many of the remaining NULL pointer dereferences. The runtime checks may consume a significant amount of CPU time; hence they can be switched off once the program is suitably debugged. Copyright © 2011 John Wiley \& Sons, Ltd.},
+year = {2012}
+}
+
+
+@inproceedings{288374,
+  author={Jensen, T.P.},
+  booktitle={Proceedings of 1994 IEEE International Conference on Computer Languages (ICCL'94)}, 
+  title={Abstract interpretation over algebraic data types}, 
+  year={1994},
+  volume={},
+  number={},
+  pages={265-276},
+  keywords={Lattices;Data structures;Logic functions;Tree data structures;Power system modeling;Binary trees},
+  doi={10.1109/ICCL.1994.288374}}
+
+
+@inproceedings{10.1145/2633628.2633634,
+author = {de Vries, Edsko and L\"{o}h, Andres},
+title = {True sums of products},
+year = {2014},
+isbn = {9781450330428},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/2633628.2633634},
+doi = {10.1145/2633628.2633634},
+abstract = {We introduce the sum-of-products (SOP) view for datatype-generic programming (in Haskell). While many of the libraries that are commonly in use today represent datatypes as arbitrary combinations of binary sums and products, SOP reflects the structure of datatypes more faithfully: each datatype is a single n-ary sum, where each component of the sum is a single n-ary product. This representation turns out to be expressible accurately in GHC with today's extensions. The resulting list-like structure of datatypes allows for the definition of powerful high-level traversal combinators, which in turn encourage the definition of generic functions in a compositional and concise style. A major plus of the SOP view is that it allows to separate function-specific metadata from the main structural representation and recombining this information later.},
+booktitle = {Proceedings of the 10th ACM SIGPLAN Workshop on Generic Programming},
+pages = {83–94},
+numpages = {12},
+keywords = {datatype-generic programming, generic views, json, lenses, metadata, sums of products, universes},
+location = {Gothenburg, Sweden},
+series = {WGP '14}
+}
+
+@incollection{Ed-douibiHamza2018OATt,
+abstract = {REpresentational State Transfer (REST) has become the prominent architectural style for designing Web APIs. This increasing adoption has triggered the creation of languages to formally describe REST APIs, thus facilitating and promoting their usage. In particular, a consortium of companies has created the OpenAPI Initiative, which aims at creating a vendor neutral, portable, standard and open specification for describing REST APIs. OpenAPI specification has become the choice of reference for describing REST APIs, and its adopters can benefit from a plethora of tools for documenting, developing and integrating REST APIs. However, current documentation tools for OpenAPI only describe REST APIs in HTML pages using text and code samples, thus requiring a considerable effort to visualize and understand what the APIs offer. In this paper, we propose a tool called OpenAPItoUML, which generates UML models from OpenAPI definitions, thus offering a better visualization of the data model and operations of REST APIs.},
+author = {Ed-douibi, Hamza and Cánovas Izquierdo, Javier Luis and Cabot, Jordi and Mikkonen, Tommi and Hernández, Juan and Klamma, Ralf},
+address = {Switzerland},
+booktitle = {Web Engineering},
+copyright = {Springer International Publishing AG, part of Springer Nature 2018},
+isbn = {9783319916613},
+issn = {0302-9743},
+language = {eng},
+pages = {487-491},
+publisher = {Springer International Publishing AG},
+series = {Lecture Notes in Computer Science},
+title = {OpenAPItoUML: A Tool to Generate UML Models from OpenAPI Definitions},
+volume = {10845},
+year = {2018},
+}
+
+
+@article{TZAVARAS2023100675,
+title = {OpenAPI framework for the Web of Things},
+journal = {Internet of Things},
+volume = {21},
+pages = {100675},
+year = {2023},
+issn = {2542-6605},
+doi = {https://doi.org/10.1016/j.iot.2022.100675},
+url = {https://www.sciencedirect.com/science/article/pii/S2542660522001561},
+author = {Aimilios Tzavaras and Nikolaos Mainas and Euripides G.M. Petrakis},
+keywords = {Web of Things, Thing Description, OpenAPI},
+abstract = {The Web of Things (WoT) Architecture recommendation of W3C defines a framework for integrating Things (e.g. devices) into the Web. It establishes an information representation of Things based on JSON-LD and RESTful API interfaces to enable access to Things. Leveraging the latest results on hypermedia construction and documentation of RESTful APIs, we argue that OpenAPI can also be used to provide documentation of Things that adheres to the W3C Architecture recommendation. OpenAPI is a widely accepted industry standard endorsed by prominent industry vendors and user communities. Therefore, it is mature and can become acceptable. An essential part of the approach is a mechanism that facilitates the generation of OpenAPI Thing Descriptions and a Web proxy that implements access to Things on the Web. An implementation of the API is also proposed and evaluated. Last but not least, OpenAPI achieves uniformity of representation of both types of WoT entities (i.e. Web services and Things) that co-exist and interact with each other in an application. This has a positive impact on the way WoT applications are designed and implemented.}
+}
+
+@inproceedings{9159071,
+  author={Karlsson, Stefan and Čaušević, Adnan and Sundmark, Daniel},
+  booktitle={2020 IEEE 13th International Conference on Software Testing, Validation and Verification (ICST)}, 
+  title={QuickREST: Property-based Test Generation of OpenAPI-Described RESTful APIs}, 
+  year={2020},
+  volume={},
+  number={},
+  pages={131-141},
+  keywords={Generators;Industries;Libraries;Electronic mail;Computer architecture;Test pattern generators;Property-based testing;OpenAPI;REST},
+  doi={10.1109/ICST46399.2020.00023}}
+
+@inproceedings{10.1145/3643991.3644932,
+author = {Serbout, Souhaila and Pautasso, Cesare},
+title = {APIstic: A Large Collection of OpenAPI Metrics},
+year = {2024},
+isbn = {9798400705878},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3643991.3644932},
+doi = {10.1145/3643991.3644932},
+abstract = {In the rapidly evolving landscape of web services, the significance of efficiently designed and well-documented APIs is paramount. In this paper, we present APIstic an API analytics dataset and exploration tool to navigate and segment APIs based on an extensive set of pre-computed metrics extracted from OpenAPI specifications, sourced from GitHub, SwaggerHub, BigQuery and APIs.guru. These pre-computed metrics are categorized into structure, data model, natural language description, and security metrics. The extensive dataset of varied API metrics provides crucial insights into API design and documentation for both researchers and practitioners. Researchers can use APIstic as an empirical resource to extract refined samples, analyze API design trends, best practices, smells, and patterns. For API designers, it serves as a benchmarking tool to assess, compare, and improve API structures, data models, and documentation using metrics to select points of references among 1,275,568 valid OpenAPI specifications. The paper discusses potential use cases of the collected data and presents a descriptive analysis of selected API analytics metrics.The dataset available at: http://openapi.inf.usi.ch/},
+booktitle = {Proceedings of the 21st International Conference on Mining Software Repositories},
+pages = {265–277},
+numpages = {13},
+location = {Lisbon, Portugal},
+series = {MSR '24}
+}
+
+
 @misc{Greif_Burel_2024, title={State of javascript 2024}, url={https://2024.stateofjs.com/en-US/features/#language_pain_points}, journal={State of JS}, publisher={Devographics}, author={Greif, Sacha and Burel, Eric}, year={2024}}
 
 @misc{ACM, url={https://www.acm.org/publications/about-publications}, journal={Association for Computing Machinery}, publisher={Association for Computing Machinery}, author={Association for Computing Machinery}} 

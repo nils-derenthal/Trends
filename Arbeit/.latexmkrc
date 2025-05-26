@@ -1,1 +1,1 @@
-$pdf_previewer = 'start okular'
+$pdf_previewer = 'start okular.exe'
