@@ -96,7 +96,7 @@ in einem JSON-ähnlichen Format könnte wiefolgt aussehen:
 
 Zur formalen Definition und Dokumentation\cite{10.1145/2577080.2577098} von REST APIs haben sich sogenannte API-Schemas etabliert.
 Diese beschreiben die möglichen Anfragen und Antworten, die eine API erwartet bzw. zurückgibt.
-Ein weit verbreiteter Standard zur Beschreibung solcher Schnittstellen ist OpenAPI \footnote{ehemals Swagger}.\cite{Ed-douibiHamza2018OATt}\cite{BognerJustus2023DRAd}
+Ein weit verbreiteter Standard zur Beschreibung solcher Schnittstellen ist OpenAPI\footnote{ehemals Swagger}.\cite{Ed-douibiHamza2018OATt}\cite{BognerJustus2023DRAd}\cite{9650408}
 
 Ein OpenAPI-Dokument beschreibt typischerweise unteranderem:
 \begin{itemize}
@@ -106,9 +106,9 @@ Ein OpenAPI-Dokument beschreibt typischerweise unteranderem:
     \item Erwartete Antworttypen und HTTP-Statuscodes
 \end{itemize}
 
-im folgenden soll hierbei primär die Beschreibung der Afragen und Antworten betrachtet werden.
+im folgenden soll hier primär die Beschreibung der Afragen und Antworten betrachtet werden.
 Ein zentrales Konzept ist das sogenannte Schema, das die Struktur dieser Daten beschreibt. 
-Die Schemata basieren in OpenAPI auf JSON.
+Die Schemata basieren in OpenAPI auf JSON oder Alternativ YAML.\cite{OpenApiSpec}
 
 Ein einfaches Beispiel für ein OpenAPI Schema, das dem bereits zuvor betrachteten GitLab Beispiel ähnelt, könnte wie folgt aussehen:
 
@@ -123,7 +123,7 @@ Ein einfaches Beispiel für ein OpenAPI Schema, das dem bereits zuvor betrachtet
   },
   "required": ["file_name", "size"]
 }
-\end{lstlisting}
+\end{lstlisting}\cite{OpenApiSpec}
 
 Hierbei ist ersichtlich, dass es sich um einen Produkttyp handelt,
 dessen Felder unterschiedliche primitive Typen besitzen.
@@ -138,7 +138,7 @@ um diese Maschinell zu analysieren und zu transformieren.
 Aus OpenAPI-Schemas lassen sich automatisch Typdefinitionen für Programmiersprachen generieren, 
 was die Konsistenz zwischen API-Dokumentation und Implementierung sicherstellt.
 Dies ist möglich bei Projekten die eine eigene Backend- und Frontend-Struktur besitzen, sowie als auch
-bei Projekten die ausschließlich eine externe API benutzen welche ein OpenAPI Schema bereitstellt.
+bei Projekten die ausschließlich eine externe API benutzen welche ein OpenAPI Schema bereitstellt.\cite{OpenAPITypeScript}
 
 Für TypeScript ist das Tool \texttt{openapi-typescript} verfügbar.
 Aus dem zuvor gezeigten Schema wird folgenden Typ erzeugt:
@@ -153,7 +153,7 @@ interface FileInfo {
 Optionale Felder, also die, die nicht in dem \texttt{required} array existieren, werden als optional deklariert.
 
 Neben der Generierung einer Typdefinition aus einem Schema ermöglichen OpenAPI-Tools auch die Erstellung von
-Schemata aus bestehenden APIs.
+Schemata aus bestehenden APIs.\cite{lercher2024generatingaccurateopenapidescriptions}\cite{dos2020analysis}
 Zum Beispiel kann im Spring Framework für Java das Tool springdoc-openapi ein Schema aus einem 
 RestController generieren.
 Wenn das generierte Schema vom Frontend zur Erstellung seiner Typdefinition verwendet wird ergibt sich auch
@@ -170,14 +170,14 @@ Beispielsweise kann ein Feld vom Typ \texttt{string} das Format \texttt{date-tim
 was bedeutet, dass nur Zeichenketten im ISO 8601 Zeitformat gültig sind. 
 Auch für \texttt{integer} oder \texttt{number} existieren Formate wie 
 \texttt{int32}, \texttt{int64} oder \texttt{float}. 
-Diese Formate definieren eingeschränkte Wertebereiche oder bestimmte Darstellungsformen.
+Diese Formate definieren eingeschränkte Wertebereiche oder bestimmte Darstellungsformen.\cite{OpenApiSpec}
 
 Das Problem hierbei ist, dass viele Programmiersprachen, insbesondere solche mit struktureller Typisierung wie TypeScript,
 diese Formatinformationen nicht direkt in ihre Typensysteme übersetzen können. 
 Während das Tooling den Typ korrekt als \texttt{string} oder \texttt{number} übernimmt, 
 geht die mit dem Format verbundene Einschränkung dabei verloren. 
 Der erzeugte Typ vermittelt also nur einen Teil der in OpenAPI spezifizierten Bedeutung, 
-was zu einem Verlust an Präzision führen kann.
+was zu einem Verlust an Präzision führen kann.\cite{OpenAPITypeScript}
 
 Ein weiteres Beispiel betrifft Wertebereiche, 
 die über die \texttt{minimum}- und \texttt{maximum}-Eigenschaften eines Schemas definiert werden.
@@ -192,7 +192,7 @@ was wiederum potenzielle Inkonsistenzen schafft.
 Trotz der offensichtlichen Vorteile automatisierter Typgenerierung, wie der Reduktion manueller Fehler
 und der Sicherstellung von Konsistenz zwischen Dokumentation und Implementierung und automatischen Tests\cite{9159071}
 bringt dieser Ansatz auch einige Herausforderungen mit sich. 
-Ein zentrales Problem stellt der sogenannte Schema-Drift dar:
+Ein zentrales Problem stellt der sogenannte Schema-Drift dar.\cite{Kromerm}
 Wenn sich das OpenAPI-Schema ändert, aber die generierten Typen im Frontend nicht aktualisiert werden, 
 kann dies zu schwer auffindbaren Laufzeitfehlern führen. 
 Zudem besteht bei generierten Typen die Gefahr einer Fehlinferenz, 
@@ -200,8 +200,6 @@ etwa wenn das Schema nicht präzise genug formuliert ist oder vereinfachte Annah
 In größeren Projekten kann es außerdem zu Konflikten zwischen manuell gepflegten und automatisch erzeugten Typdefinitionen kommen,
 insbesondere wenn Entwickler*innen lokal Anpassungen vornehmen, 
 die beim nächsten Generierungslauf überschrieben werden. 
-In solchen Fällen ist eine klare Tooling-Strategie sowie ein bewusstes Versions- und Änderungsmanagement unerlässlich, 
-um Konsistenz und Wartbarkeit langfristig sicherzustellen.
 
 \subsection{Persönliche Reflexion}
 
